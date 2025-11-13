@@ -236,6 +236,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Slot, function (sprite, otherSpr
     if (controller.B.isPressed()) {
         Slots()
     }
+    if (controller.right.isPressed() || controller.down.isPressed()) {
+        scene.cameraFollowSprite(Ludoman)
+    }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Ludoman)
@@ -432,6 +435,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Reception, function (sprite, oth
     }
 })
 function Casino_menu () {
+    info.setScore(100)
     RoyaleSkilt = sprites.create(img`
         ..............................................................................................................................................................................................................................................................................
         ..............................................................................................................................................................................................................................................................................
@@ -606,28 +610,7 @@ function Casino_menu () {
         `, SpriteKind.Dekoration)
     RoyaleSkilt.setScale(0.7, ScaleAnchor.Middle)
     RoyaleSkilt.setPosition(270, 130)
-    Ludoman = sprites.create(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `, SpriteKind.Player)
-    controller.moveSprite(Ludoman, 100, 100)
-    scene.cameraFollowSprite(Ludoman)
     tiles.setCurrentTilemap(tilemap`level5`)
-    tiles.placeOnTile(Ludoman, tiles.getTileLocation(16, 9))
     Slot2 = sprites.create(assets.image`Slot`, SpriteKind.Slot)
     tiles.placeOnTile(Slot2, tiles.getTileLocation(6, 11))
     animation.runImageAnimation(
@@ -1271,69 +1254,139 @@ function Casino_menu () {
         .1111ffffddd1111.
         `, SpriteKind.Dekoration)
     tiles.placeOnTile(DealerBlackJack, tiles.getTileLocation(17, 3))
-}
-function Test () {
-    SlotList = [img`
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-        `, img`
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-        `, img`
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        `]
-    SlotPic1 = sprites.create(SlotList._pickRandom(), SpriteKind.Dekoration)
-    SlotPic2 = sprites.create(SlotList._pickRandom(), SpriteKind.Dekoration)
-    SlotPic3 = sprites.create(SlotList._pickRandom(), SpriteKind.Dekoration)
-    if (SlotPic1 == (SlotPic2 && SlotPic3)) {
-        game.splash("Gevinst")
-    }
+    Ludoman = sprites.create(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `, SpriteKind.Player)
+    controller.moveSprite(Ludoman, 100, 100)
+    scene.cameraFollowSprite(Ludoman)
+    tiles.placeOnTile(Ludoman, tiles.getTileLocation(7, 11))
 }
 function Slots () {
-    game.splash("Indsæt enarmet tyveknægt")
+    scene.centerCameraAt(655, 800)
+    info.changeScoreBy(-1)
+    SlotList = [
+    img`
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        `,
+    img`
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+        `,
+    img`
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        `,
+    img`
+        a a a a a a a a a a a a a a a a 
+        a a a a a a a a a a a a a a a a 
+        a a a a a a a a a a a a a a a a 
+        a a a 5 5 5 5 5 5 5 5 5 5 a a a 
+        a a a 5 a a a a a a a a a a a a 
+        a a a 5 a a a a a a 5 a a a a a 
+        a a a a a a a a a 5 a a a a a a 
+        a a a a a a a a 5 a a a a a a a 
+        a a a a a a a 5 a a a a a a a a 
+        a a a a a a 5 5 5 5 a a a a a a 
+        a a a a a a 5 a a a a a a a a a 
+        a a a a a 5 a a a a a a a a a a 
+        a a a a 5 a a a a a a a a a a a 
+        a a a 5 a a a a a a a a a a a a 
+        a a a a a a a a a a a a a a a a 
+        a a a a a a a a a a a a a a a a 
+        `,
+    img`
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        c c c c c c c c c c c c c c c c 
+        `
+    ]
+    for (let index = 0; index < 5; index++) {
+        SlotPic1 = sprites.create(SlotList._pickRandom(), SpriteKind.Dekoration)
+        tiles.placeOnTile(SlotPic1, tiles.getTileLocation(38, 21))
+        SlotPic2 = sprites.create(SlotList._pickRandom(), SpriteKind.Dekoration)
+        tiles.placeOnTile(SlotPic2, tiles.getTileLocation(40, 21))
+        SlotPic3 = sprites.create(SlotList._pickRandom(), SpriteKind.Dekoration)
+        tiles.placeOnTile(SlotPic3, tiles.getTileLocation(42, 21))
+        pause(20)
+    }
+    if (SlotPic1.image == SlotPic2.image && SlotPic2.image == SlotPic3.image && SlotPic3.image == SlotList[3]) {
+        game.showLongText("Jackpot", DialogLayout.Bottom)
+        info.changeScoreBy(51)
+    } else if (SlotPic1.image == SlotPic2.image && SlotPic2.image == SlotPic3.image) {
+        game.showLongText("Gevinst", DialogLayout.Bottom)
+        info.changeScoreBy(16)
+    }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Roulette, function (sprite, otherSprite) {
     if (Ludoman.overlapsWith(Roulette2)) {
