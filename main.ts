@@ -1396,7 +1396,7 @@ function Slots () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Roulette, function (sprite, otherSprite) {
     if (Ludoman.overlapsWith(Roulette2)) {
-        DealerRoulette.sayText("Tryk \"B\"", 3000, false)
+        DealerRoulette.sayText("Tryk \"B\"", 1000, false)
     }
     if (controller.B.isPressed() && MusicPlaying == 0) {
         music.play(music.createSong(assets.song`Hop`), music.PlaybackMode.LoopingInBackground)
