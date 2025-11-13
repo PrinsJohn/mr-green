@@ -233,11 +233,17 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Slot, function (sprite, otherSpr
     if (Ludoman.overlapsWith(Slot2)) {
         Slot2.sayText("Tryk \"B\"", 3000, false)
     }
+    if (controller.B.isPressed() && MusicPlaying == 0) {
+        music.play(music.createSong(assets.song`Billig Jean`), music.PlaybackMode.LoopingInBackground)
+        MusicPlaying = 1
+    }
     if (controller.B.isPressed()) {
         Slots()
     }
-    if (controller.right.isPressed() || controller.down.isPressed()) {
+    if (controller.right.isPressed() || controller.down.isPressed() || (controller.left.isPressed() || controller.up.isPressed())) {
+        music.stopAllSounds()
         scene.cameraFollowSprite(Ludoman)
+        MusicPlaying = 0
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -1392,8 +1398,17 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Roulette, function (sprite, othe
     if (Ludoman.overlapsWith(Roulette2)) {
         DealerRoulette.sayText("Tryk \"B\"", 3000, false)
     }
+    if (controller.B.isPressed() && MusicPlaying == 0) {
+        music.play(music.createSong(assets.song`Hop`), music.PlaybackMode.LoopingInBackground)
+        MusicPlaying = 1
+    }
     if (controller.B.isPressed()) {
         RouletteTable()
+    }
+    if (controller.right.isPressed() || controller.down.isPressed() || (controller.left.isPressed() || controller.up.isPressed())) {
+        music.stopAllSounds()
+        scene.cameraFollowSprite(Ludoman)
+        MusicPlaying = 0
     }
 })
 let SlotPic3: Sprite = null
@@ -1407,6 +1422,7 @@ let Roulette2: Sprite = null
 let RoyaleSkilt: Sprite = null
 let DealerReception: Sprite = null
 let DefektSlot2: Sprite = null
+let MusicPlaying = 0
 let Slot2: Sprite = null
 let Ludoman: Sprite = null
 Casino_menu()
