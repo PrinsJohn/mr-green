@@ -3796,7 +3796,7 @@ function RouletteTable () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Reception, function (sprite, otherSprite) {
     if (Ludoman.overlapsWith(DealerReception)) {
-        DealerReception.sayText("Tryk \"B\"", 3000, false)
+        DealerReception.sayText("Tryk \"B\"", 1000, false)
     }
     if (controller.B.isPressed() && 0 < info.score()) {
         game.showLongText("Du har stadigvæk penge at spille for", DialogLayout.Center)
@@ -3810,27 +3810,9 @@ info.onLifeZero(function () {
     game.setGameOverMessage(false, "GAME OVER!")
 })
 function Casino_menu () {
-    info.setScore(0)
+    info.setScore(100)
     info.setLife(3)
-    Gæld = 100
-    game.setDialogFrame(img`
-        f f f f f f f f f f f f f f f 
-        f e e e e e e e e e e e e e f 
-        f e f f f f f f f f f f f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f 3 3 3 3 3 3 3 3 3 f e f 
-        f e f f f f f f f f f f f e f 
-        f e e e e e e e e e e e e e f 
-        f f f f f f f f f f f f f f f 
-        `)
-    game.setDialogTextColor(1)
+    Gæld = 120
     RoyaleSkilt = sprites.create(img`
         ..............................................................................................................................................................................................................................................................................
         ..............................................................................................................................................................................................................................................................................
@@ -4026,7 +4008,7 @@ function Casino_menu () {
         `, SpriteKind.CasinoExit)
     tiles.placeOnTile(CasinoUdgang, tiles.getTileLocation(8, 25))
     Slot2 = sprites.create(assets.image`Slot`, SpriteKind.Slot)
-    tiles.placeOnTile(Slot2, tiles.getTileLocation(8, 11))
+    tiles.placeOnTile(Slot2, tiles.getTileLocation(6, 11))
     animation.runImageAnimation(
     Slot2,
     [img`
@@ -6049,13 +6031,55 @@ function Slots () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.CasinoExit, function (sprite, otherSprite) {
     if (controller.B.isPressed()) {
-        if (info.score() > Gæld && info.life() >= 1) {
+        if (info.score() > Gæld) {
             game.showLongText("Har du vundet nok?", DialogLayout.Full)
             game.showLongText("Din scorer er " + info.score() + "$, med en gæld på " + Gæld + "$. Det giver en gevindst på " + (info.score() - Gæld) + "$", DialogLayout.Full)
+            GameOver = game.askForString("Er du færdig med at spille?", 3)
+        } else if (info.score() == Gæld) {
+            game.showLongText("Du har vundet lige så meget som du skylder.", DialogLayout.Full)
+            GameOver = game.askForString("Er du færdig med at spille?", 3)
         } else {
-        	
+            game.setDialogFrame(img`
+                f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 4 4 4 4 4 4 4 4 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 2 2 2 2 2 2 2 4 5 f f 
+                f f 5 4 4 4 4 4 4 4 4 4 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f 
+                `)
+            game.showLongText("Du kan ikke gå hjem før du har vundet nok til at betale din gæld", DialogLayout.Center)
+            game.showLongText("Din scorer er " + info.score() + "$, med en gæld på " + Gæld + "$" + ". Du mangler stadig " + (Gæld - info.score()) + "$", DialogLayout.Full)
+        }
+        if (GameOver == "ja" || GameOver == "Ja" || GameOver == "JA") {
+            game.gameOver(true)
         }
     }
+    game.setDialogFrame(img`
+        f f f f f f f f f f f f f f f 
+        f e e e e e e e e e e e e e f 
+        f e f f f f f f f f f f f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f 3 3 3 3 3 3 3 3 3 f e f 
+        f e f f f f f f f f f f f e f 
+        f e e e e e e e e e e e e e f 
+        f f f f f f f f f f f f f f f 
+        `)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Roulette, function (sprite, otherSprite) {
     if (Ludoman.overlapsWith(Roulette2)) {
@@ -6067,10 +6091,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Roulette, function (sprite, othe
     }
     if (controller.B.isPressed()) {
         RouletteTable()
+        pause(200)
     }
     if (controller.right.isPressed() || controller.down.isPressed() || (controller.left.isPressed() || controller.up.isPressed())) {
         music.stopAllSounds()
-        scene.cameraFollowSprite(Ludoman)
         MusicPlaying = 0
     }
 })
@@ -6098,6 +6122,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Exit, function (sprite, otherSpr
     scene.cameraFollowSprite(Ludoman)
     controller.moveSprite(Ludoman)
 })
+let GameOver = ""
 let SlotPic3: Sprite = null
 let SlotPic2: Sprite = null
 let SlotPic1: Sprite = null
@@ -6160,4 +6185,24 @@ let DealerRoulette: Sprite = null
 let RouletteHjul: Sprite = null
 let RouletteResultat = 0
 let RouletteIndsats = 0
+game.setDialogFrame(img`
+    f f f f f f f f f f f f f f f 
+    f e e e e e e e e e e e e e f 
+    f e f f f f f f f f f f f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f 3 3 3 3 3 3 3 3 3 f e f 
+    f e f f f f f f f f f f f e f 
+    f e e e e e e e e e e e e e f 
+    f f f f f f f f f f f f f f f 
+    `)
+game.setDialogTextColor(1)
+game.showLongText("Du skylder banken 20$, så du har lånt 100$ af din ven. ", DialogLayout.Full)
+game.showLongText("Nu skal du lave de 100$ om til 120$.", DialogLayout.Full)
 Casino_menu()
