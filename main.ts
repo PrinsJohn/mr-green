@@ -42,6 +42,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.RouletteRød, function (sprite, 
                 `, SpriteKind.Player)
             tiles.placeOnTile(Ludoman, LastLocation.getNeighboringLocation(CollisionDirection.Left))
             scene.cameraFollowSprite(Ludoman)
+            controller.moveSprite(Ludoman)
         } else {
             game.showLongText("Makker. Så mange penge har du ikke.", DialogLayout.Center)
         }
@@ -129,35 +130,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.RouletteTal, function (sprite, o
         RouletteIndsats = game.askForNumber("", 4, false)
         if (RouletteIndsats <= info.score()) {
             info.setScore(info.score() - RouletteIndsats)
-            RouletteTalListe = [_1, _2, 0]
-            RouletteResultat = RouletteTalListe._pickRandom()
-            if (RouletteResultat == otherSprite) {
-                game.splash("JACKPOT!!! Du har vundet", RouletteIndsats * 10)
-                info.changeScoreBy(RouletteIndsats * 10)
-            } else {
-                game.splash("Øv det blev", RouletteResultat)
-            }
-            sprites.destroy(RouletteCursor)
-            Ludoman = sprites.create(img`
-                . . . . . . f f f f . . . . . . 
-                . . . . f f f 2 2 f f f . . . . 
-                . . . f f f 2 2 2 2 f f f . . . 
-                . . f f f e e e e e e f f f . . 
-                . . f f e 2 2 2 2 2 2 e e f . . 
-                . . f e 2 f f f f f f 2 e f . . 
-                . . f f f f e e e e f f f f . . 
-                . f f e f b f 4 4 f b f e f f . 
-                . f e e 4 1 f d d f 1 4 e e f . 
-                . . f e e d d d d d d e e f . . 
-                . . . f e e 4 4 4 4 e e f . . . 
-                . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-                . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-                . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-                . . . . . f f f f f f . . . . . 
-                . . . . . f f . . f f . . . . . 
-                `, SpriteKind.Player)
-            tiles.placeOnTile(Ludoman, LastLocation.getNeighboringLocation(CollisionDirection.Left))
-            scene.cameraFollowSprite(Ludoman)
         } else {
             game.showLongText("Makker. Så mange penge har du ikke.", DialogLayout.Center)
         }
@@ -510,25 +482,6 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 function RouletteTable () {
-    mySprite2 = sprites.create(img`
-        . . . . . f f f f f f . . . . . 
-        . . . f f f . f . . f f f . . . 
-        . . f f . . . f . . . . f f . . 
-        . f f . . . . f . . . . . f . . 
-        . f . . . . . f f . . . . f f . 
-        f f . . . . . f f . . . . . f . 
-        f . . . . . . f . . . . . . f f 
-        f f f . . . . f . . . . . . . f 
-        f . f f f f f f f f f f f . . f 
-        f . . . . . . f . . . . f f f f 
-        f f . . . . . f . . . . . . . f 
-        . f . . . . . f . . . . . . f f 
-        . f f . . . . f . . . . . . f . 
-        . . f f . . . f . . . . . . f . 
-        . . . . f f . f . . . . f f . . 
-        . . . . . . f f f f f f f . . . 
-        `, SpriteKind.RouletteTal)
-    tiles.placeOnTile(mySprite2, tiles.getTileLocation(37, 7))
     LastLocation = Ludoman.tilemapLocation()
     sprites.destroy(Ludoman)
     _1 = sprites.create(img`
@@ -1215,6 +1168,45 @@ function RouletteTable () {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.RouletteTal)
     tiles.placeOnTile(_36, tiles.getTileLocation(41, 6))
+    RouletteTalListe = [
+    _1,
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    _17,
+    _18,
+    _19,
+    _20,
+    _21,
+    _21,
+    _22,
+    _23,
+    _24,
+    _25,
+    _26,
+    _27,
+    _28,
+    _29,
+    _30,
+    _31,
+    _32,
+    _33,
+    _34,
+    _35,
+    _36
+    ]
     sort = sprites.create(img`
         . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
         . 1 1 f f f f f f f f f f 1 1 . 
@@ -2158,6 +2150,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.RouletteSort, function (sprite, 
                 `, SpriteKind.Player)
             tiles.placeOnTile(Ludoman, LastLocation.getNeighboringLocation(CollisionDirection.Left))
             scene.cameraFollowSprite(Ludoman)
+            controller.moveSprite(Ludoman)
         } else {
             game.showLongText("Makker. Så mange penge har du ikke.", DialogLayout.Center)
         }
@@ -2304,11 +2297,10 @@ let RoyaleSkilt: Sprite = null
 let DealerReception: Sprite = null
 let rød: Sprite = null
 let sort: Sprite = null
-let mySprite2: Sprite = null
+let RouletteTalListe: Sprite[] = []
 let DefektSlot2: Sprite = null
 let MusicPlaying = 0
 let Slot2: Sprite = null
-let RouletteTalListe: Sprite[] = []
 let LastLocation: tiles.Location = null
 let Ludoman: Sprite = null
 let RouletteCursor: Sprite = null
