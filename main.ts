@@ -6449,6 +6449,6 @@ scene.setBackgroundImage(img`
     ................................................................................................................................................................
     ................................................................................................................................................................
     `)
-game.showLongText("Du skylder banken 20$, så du har lånt 100$ af din ven. ", DialogLayout.Full)
+game.showLongText("Du skylder banken 20$, men du har lånt 100$ af din ven. ", DialogLayout.Full)
 game.showLongText("Nu skal du lave de 100$ om til 120$.", DialogLayout.Full)
 Casino_menu()
