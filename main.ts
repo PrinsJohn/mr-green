@@ -2731,8 +2731,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Slot, function (sprite, otherSpr
         Slot2.sayText("Tryk \"B\"", 700, false)
     }
     if (controller.B.isPressed() && MusicPlaying == 0) {
-        music.play(music.createSong(assets.song`Billig Jean`), music.PlaybackMode.LoopingInBackground)
-        MusicPlaying = 1
+    	
     }
     if (controller.B.isPressed() && 0 < info.score()) {
         Slots()
@@ -6086,8 +6085,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Roulette, function (sprite, othe
         DealerRoulette.sayText("Tryk \"B\"", 600, false)
     }
     if (controller.B.isPressed() && MusicPlaying == 0) {
-        music.play(music.createSong(assets.song`Hop`), music.PlaybackMode.LoopingInBackground)
-        MusicPlaying = 1
+    	
     }
     if (controller.B.isPressed()) {
         RouletteTable()
