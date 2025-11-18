@@ -2521,7 +2521,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.RouletteTal, function (sprite, o
             RouletteResultat = RouletteTalListe.indexOf(randint(0, 35))
             if (RouletteSpriteListe[RouletteResultat] == otherSprite) {
                 game.splash("JACKPOT!!! Du har vundet", RouletteIndsats * 10)
-                info.changeScoreBy(RouletteIndsats * 10)
+                info.changeScoreBy(RouletteIndsats * 36)
                 DealerRoulette.sayText("Tillykke", 700, false)
             } else {
                 game.splash("Øv det blev", RouletteResultat)
@@ -2934,44 +2934,9 @@ function RouletteTable () {
     RouletteIndsats = 0
     LastLocation = Ludoman.tilemapLocation()
     sprites.destroy(Ludoman)
-    Dør = sprites.create(img`
-        . e e e e e e e e e e e e e e . 
-        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        f 3 b 3 e f f f f f f e 3 3 b e 
-        f 3 b f f f f f f f f f f 3 b e 
-        f 3 e f f f f f f f f f f e b e 
-        f 3 e e e e e e e e e e e e b e 
-        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        e 3 b 3 3 b 3 3 b 3 3 f e e e e 
-        e 3 b 3 3 b 3 3 b 3 3 f f f f e 
-        f 3 b 3 3 b 3 3 b 3 3 f 3 3 f e 
-        f 3 b 3 3 b 3 3 b 3 3 b f f e e 
-        f 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        f 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
-        `, SpriteKind.Exit)
-    RouletteHjul = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
-        . . 1 f f f f f f f f f f 1 . . 
-        . . 1 f f f f f f f f f f 1 . . 
-        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
-        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
-        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
-        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
-        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
-        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
-        . . 1 f f f f f f f f f f 1 . . 
-        . . 1 f f f f f f f f f f 1 . . 
-        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player)
-    tiles.placeOnTile(RouletteHjul, tiles.getTileLocation(40, 2))
-    tiles.placeOnTile(Dør, tiles.getTileLocation(45, 8))
+    sprites.destroyAllSpritesOfKind(SpriteKind.RouletteTal)
+    sprites.destroyAllSpritesOfKind(SpriteKind.RouletteRød)
+    sprites.destroyAllSpritesOfKind(SpriteKind.RouletteSort)
     _1 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -4542,6 +4507,44 @@ function Casino_menu () {
     50,
     true
     )
+    Dør = sprites.create(img`
+        . e e e e e e e e e e e e e e . 
+        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        f 3 b 3 e f f f f f f e 3 3 b e 
+        f 3 b f f f f f f f f f f 3 b e 
+        f 3 e f f f f f f f f f f e b e 
+        f 3 e e e e e e e e e e e e b e 
+        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        e 3 b 3 3 b 3 3 b 3 3 f e e e e 
+        e 3 b 3 3 b 3 3 b 3 3 f f f f e 
+        f 3 b 3 3 b 3 3 b 3 3 f 3 3 f e 
+        f 3 b 3 3 b 3 3 b 3 3 b f f e e 
+        f 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        f 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        e 3 b 3 3 b 3 3 b 3 3 b 3 3 b e 
+        `, SpriteKind.Exit)
+    RouletteHjul = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . 1 f f f f f f f f f f 1 . . 
+        . . 1 f f f f f f f f f f 1 . . 
+        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
+        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
+        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
+        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
+        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
+        . . 1 f f 2 2 2 2 2 2 f f 1 . . 
+        . . 1 f f f f f f f f f f 1 . . 
+        . . 1 f f f f f f f f f f 1 . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Player)
+    tiles.placeOnTile(RouletteHjul, tiles.getTileLocation(40, 2))
+    tiles.placeOnTile(Dør, tiles.getTileLocation(45, 8))
     Roulette2 = sprites.create(assets.image`Roulette`, SpriteKind.Roulette)
     tiles.placeOnTile(Roulette2, tiles.getTileLocation(27, 16))
     DealerRoulette = sprites.create(assets.image`Dealer 1`, SpriteKind.Player)
@@ -6128,6 +6131,7 @@ let SlotList: Image[] = []
 let DealerBlackJack: Sprite = null
 let BlackJack: Sprite = null
 let Roulette2: Sprite = null
+let Dør: Sprite = null
 let CasinoUdgang: Sprite = null
 let RoyaleSkilt: Sprite = null
 let DealerReception: Sprite = null
@@ -6169,7 +6173,6 @@ let _4: Sprite = null
 let _3: Sprite = null
 let _2: Sprite = null
 let _1: Sprite = null
-let Dør: Sprite = null
 let DefektSlot2: Sprite = null
 let MusicPlaying = 0
 let Slot2: Sprite = null
